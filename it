@@ -1,5 +1,23 @@
 #!/usr/bin/osascript
 
+on play_some()
+  tell application "iTunes"
+    if player state is stopped then play some track of library playlist 1
+  end tell
+end play_some
+
+on current_track_info()
+  tell application "iTunes"
+    return¬
+      "\n----------------------------------------" &¬
+      "\n|   name: " & name of current track  &¬
+      "\n|  album: " & album of current track  &¬
+      "\n| artist: " & artist of current track  &¬
+      "\n----------------------------------------"
+  end tell
+end current_track_info
+
+
 on run argv
   set help_txt to "Example usage:
 Base:
@@ -18,33 +36,38 @@ volume:
 Help:
     it help"
 
+
   if argv is {} then return help_txt
 
   set cmd to item 1 of argv
 
   if cmd is "play" then
+    play_some()
     tell application "iTunes" to play
-    return "Enjoying your music"
+    return "Enjoy your music" & current_track_info()
 
   else if cmd is "pause" then
     tell application "iTunes" to pause
     return "Take a break"
 
   else if cmd is "toggle" then
+    play_some()
     tell application "iTunes" to playpause
-    return "Take a break"
+    return "To play or not to play, that's your choice" & current_track_info()
 
   else if cmd is "stop" then
     tell application "iTunes" to stop
     return "It's not the end"
 
   else if cmd is "next" then
-    tell application "iTunes" to play (next track)
-    return "Give me something new"
+    play_some()
+    tell application "iTunes" to next track
+    return "Give me something new" & current_track_info()
 
   else if cmd is "previous" or cmd is "pre" then
-    tell application "iTunes" to play (previous track)
-    return "Love you all the time"
+    play_some()
+    tell application "iTunes" to previous track
+    return "Love you all the time" & current_track_info()
 
   else if cmd is "up" then
     tell application "iTunes" to set sound volume to sound volume + 5
