@@ -1,0 +1,74 @@
+#!/usr/bin/osascript
+
+on run argv
+  set help_txt to "Example usage:
+Base:
+    it play
+    it pause
+    it toggle
+    it stop
+Track:
+    it next
+    it previous(pre)
+volume:
+    it up
+    it down
+    it top
+    it mute
+Help:
+    it help"
+
+  if argv is {} then return help_txt
+
+  set cmd to item 1 of argv
+
+  if cmd is "play" then
+    tell application "iTunes" to play
+    return "Enjoying your music"
+
+  else if cmd is "pause" then
+    tell application "iTunes" to pause
+    return "Take a break"
+
+  else if cmd is "toggle" then
+    tell application "iTunes" to playpause
+    return "Take a break"
+
+  else if cmd is "stop" then
+    tell application "iTunes" to stop
+    return "It's not the end"
+
+  else if cmd is "next" then
+    tell application "iTunes" to play (next track)
+    return "Give me something new"
+
+  else if cmd is "previous" or cmd is "pre" then
+    tell application "iTunes" to play (previous track)
+    return "Love you all the time"
+
+  else if cmd is "up" then
+    tell application "iTunes" to set sound volume to sound volume + 5
+    return "Like your sound"
+
+  else if cmd is "down" then
+    tell application "iTunes" to set sound volume to sound volume - 5
+    return "Quiet now"
+
+  else if cmd is "top" then
+    tell application "iTunes" to set sound volume to 100
+    return "Give me your power"
+
+  else if cmd is "mute" then
+    --tell application "iTunes" to pause
+    tell application "iTunes" to set sound volume to 0
+    return "Silent tells all"
+
+  else
+    return help_txt
+
+  end if
+
+end run
+
+
+-- vim: set ft=applescript ts=2 sw=2 et:
