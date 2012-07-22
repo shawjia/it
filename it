@@ -2,7 +2,11 @@
 
 on play_some()
   tell application "iTunes"
-    if player state is stopped then play some track of library playlist 1
+    if player state is stopped then try
+      play some track of playlist "Music"
+    on error
+      play some track of library playlist 1
+    end try
   end tell
 end play_some
 
