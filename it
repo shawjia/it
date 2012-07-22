@@ -14,9 +14,12 @@ on current_track_info()
   tell application "iTunes"
     return¬
       "\n----------------------------------------" &¬
-      "\n|   name: " & name of current track  &¬
-      "\n|  album: " & album of current track  &¬
-      "\n| artist: " & artist of current track  &¬
+      "\n|   name: " & name of current track &¬
+      "\n|  album: " & album of current track &¬
+      "\n| artist: " & artist of current track &¬
+      "\n| length: " & time of current track &¬
+      "\n| played: " & played count of current track & " times" &¬
+      "\n| rating: " & rating of current track &¬
       "\n----------------------------------------"
   end tell
 end current_track_info
@@ -25,18 +28,17 @@ end current_track_info
 on run argv
   set help_txt to "Example usage:
 Base:
-    it play
-    it pause
-    it toggle
-    it stop
+    it play/pause/toggle/stop
 Track:
-    it next
-    it previous(pre)
-volume:
-    it up
-    it down
-    it top
-    it mute
+    it next(skip)/previous(pre)
+Volume:
+    it up/down/top/mute
+Rating:
+    it rate 0~100
+Repeat:
+    it repeat off/one/all
+Other
+    it uncheck(never)/check
 Help:
     it help"
 
@@ -63,7 +65,7 @@ Help:
     tell application "iTunes" to stop
     return "It's not the end"
 
-  else if cmd is "next" then
+  else if cmd is "next" or cmd is "skip" then
     play_some()
     tell application "iTunes" to next track
     return "Give me something new" & current_track_info()
@@ -89,6 +91,42 @@ Help:
     --tell application "iTunes" to pause
     tell application "iTunes" to set sound volume to 0
     return "Silent tells all"
+
+  else if cmd is "rate" then
+    try
+      set rate to item 2 of argv
+      tell application "iTunes" to set rating of current track to rate
+      return "Rating set to " & rate
+    end try
+    return "You should rate the song from 0 to 100"
+
+  else if cmd is "repeat" then
+    try
+      set mode to item 2 of argv
+      if mode is "off" then
+        tell application "iTunes" to set song repeat of current playlist to off
+      else if mode is "one" then
+        tell application "iTunes" to set song repeat of current playlist to one
+      else if mode is "all" then
+        tell application "iTunes" to set song repeat of current playlist to all
+      else
+        return "Repeat mode should be off/one/all"
+      end if
+      return "Repeat mode set to " & mode
+    end try
+
+    return "Repeat mode should be off/one/all"
+
+  else if cmd is "uncheck" or cmd is "never" then
+    tell application "iTunes"
+      set enabled of current track to false
+      next track
+    end tell
+    return "You would never hear it again, enjoy the new one. \n" & current_track_info()
+
+  else if cmd is "check" then
+    tell application "iTunes" to set enabled of current track to true
+    return "Checked!"
 
   else
     return help_txt
