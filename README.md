@@ -2,41 +2,42 @@
 
 **it**, short for **iTunes Terminal**, could help you control **i**Tunes in your **t**erminal.
 
-Use it, cause it's dead simple.
-
 # Installation
 
 To use **it**, you should clone this repo:
 
-	git clone git://github.com/shawjia/it.git && cd it
-	
+    git clone git://github.com/shawjia/it.git && cd it
+
 and then create a symbolic link:
-	
-	ln -s $PWD/it /usr/local/bin/
 
-All done!
+    ln -s $PWD/it /usr/local/bin/
 
-# Usage 
+# Usage
 
 ## Base:
 
-    it play
-    it pause
-    it toggle
-    it stop    
-    
+    it play/pause/toggle/stop
+
 ## Track:
 
-    it next
-    it previous(pre)
-    
+    it next(skip)/previous(pre)
+
 ## Volume:
 
-    it up
-    it down
-    it top
-    it mute
-    
+    it up/down/top/mute
+
+## Rating:
+
+    it rate 0~100
+
+## Repeat:
+
+    it repeat off/one/all
+
+## Other:
+
+    it uncheck(never)
+
 ## Help:
 
     it help

@@ -1,4 +1,4 @@
-#!/usr/bin/osascript
+#!/usr/bin/env osascript
 
 on play_some()
   tell application "iTunes"
@@ -37,8 +37,8 @@ Rating:
     it rate 0~100
 Repeat:
     it repeat off/one/all
-Other
-    it uncheck(never)/check
+Other:
+    it uncheck(never)
 Help:
     it help"
 
@@ -123,10 +123,6 @@ Help:
       next track
     end tell
     return "You would never hear it again, enjoy the new one. \n" & current_track_info()
-
-  else if cmd is "check" then
-    tell application "iTunes" to set enabled of current track to true
-    return "Checked!"
 
   else
     return help_txt
