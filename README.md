@@ -37,6 +37,7 @@ and then create a symbolic link:
 ## Other:
 
     it uncheck(never)
+    it shuffle off/on
 
 ## Help:
 

@@ -39,6 +39,7 @@ Repeat:
     it repeat off/one/all
 Other:
     it uncheck(never)
+    it shuffle off/on
 Help:
     it help"
 
@@ -114,7 +115,6 @@ Help:
       end if
       return "Repeat mode set to " & mode
     end try
-
     return "Repeat mode should be off/one/all"
 
   else if cmd is "uncheck" or cmd is "never" then
@@ -122,7 +122,21 @@ Help:
       set enabled of current track to false
       next track
     end tell
-    return "You would never hear it again, enjoy the new one. \n" & current_track_info()
+    return "You would never hear it again, enjoy the new one. " & current_track_info()
+
+  else if cmd is "shuffle" then
+    try
+      set mode to item 2 of argv
+      if mode is "off" then
+        tell application "iTunes" to set shuffle of current playlist to false
+      else if mode is "on" then
+        tell application "iTunes" to set shuffle of current playlist to true
+      else
+        return "Shuffle mode should be off/on"
+      end if
+      return "Shuffle mode set to " & mode
+    end try
+    return "Shuffle mode should be off/on"
 
   else
     return help_txt
