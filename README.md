@@ -38,6 +38,7 @@ and then create a symbolic link:
 
     it uncheck(never)
     it shuffle off/on
+    it setting(config)
 
 ## Help:
 

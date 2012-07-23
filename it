@@ -13,17 +13,42 @@ end play_some
 on current_track_info()
   tell application "iTunes"
     return¬
-      "\n----------------------------------------" &¬
+      "\n+---------------------------------------" &¬
       "\n|   name: " & name of current track &¬
       "\n|  album: " & album of current track &¬
       "\n| artist: " & artist of current track &¬
       "\n| length: " & time of current track &¬
       "\n| played: " & played count of current track & " times" &¬
       "\n| rating: " & rating of current track &¬
-      "\n----------------------------------------"
+      "\n+---------------------------------------"
   end tell
 end current_track_info
 
+on setting()
+  tell application "iTunes"
+    set now_pl to "none"
+    set now_re to "none"
+    set now_sh to "none"
+    set now_vo to sound volume
+    try
+      set now_pl to name of current playlist
+      set now_re to song repeat of current playlist
+      if shuffle of current playlist is off then
+        set now_sh to "off"
+      else
+        set now_sh to "on"
+      end if
+    end try
+    return¬
+      "+---------------------------------------\n" &¬
+      "|   Repeat: " & now_re & "\n" &¬
+      "|   Volume: " & now_vo & "\n" &¬
+      "|  Shuffle: " & now_sh & "\n" &¬
+      "| Playlist: " & now_pl & "\n" &¬
+      "+---------------------------------------"
+
+  end tell
+end setting
 
 on run argv
   set help_txt to "Example usage:
@@ -40,6 +65,7 @@ Repeat:
 Other:
     it uncheck(never)
     it shuffle off/on
+    it setting(config)
 Help:
     it help"
 
@@ -146,6 +172,9 @@ Help:
       return "Shuffle mode set to " & mode
     end try
     return "Shuffle mode should be off/on"
+
+  else if cmd is "setting" or cmd is "config" then
+    return setting()
 
   else
     return help_txt
