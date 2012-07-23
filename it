@@ -32,7 +32,7 @@ Base:
 Track:
     it next(skip)/previous(pre)
 Volume:
-    it up/down/top/mute
+    it up/down/top/mute/volume(vol)
 Rating:
     it rate 0~100
 Repeat:
@@ -77,21 +77,30 @@ Help:
     return "Love you all the time" & current_track_info()
 
   else if cmd is "up" then
-    tell application "iTunes" to set sound volume to sound volume + 5
-    return "Like your sound"
+    tell application "iTunes"
+      set sound volume to sound volume + 5
+      return "Current sound volume is set to " & sound volume
+    end tell
 
   else if cmd is "down" then
-    tell application "iTunes" to set sound volume to sound volume - 5
-    return "Quiet now"
+    tell application "iTunes"
+      set sound volume to sound volume - 5
+      return "Current sound volume is down to " & sound volume
+    end tell
 
   else if cmd is "top" then
     tell application "iTunes" to set sound volume to 100
-    return "Give me your power"
+    return "Current sound volume is 100"
 
   else if cmd is "mute" then
     --tell application "iTunes" to pause
     tell application "iTunes" to set sound volume to 0
     return "Silent tells all"
+
+  else if cmd is "volume" or cmd is "vol" then
+    tell application "iTunes"
+      return "Current sound volume is " & sound volume
+    end tell
 
   else if cmd is "rate" then
     try

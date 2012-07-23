@@ -24,7 +24,7 @@ and then create a symbolic link:
 
 ## Volume:
 
-    it up/down/top/mute
+    it up/down/top/mute/volume(vol)
 
 ## Rating:
 
