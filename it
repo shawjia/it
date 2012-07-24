@@ -33,7 +33,7 @@ on setting()
     try
       set now_pl to name of current playlist
       set now_re to song repeat of current playlist
-      if shuffle of current playlist is off then
+      if shuffle of current playlist is false then
         set now_sh to "off"
       else
         set now_sh to "on"
@@ -66,6 +66,7 @@ Other:
     it uncheck(never)
     it shuffle off/on
     it setting(config)
+    it genius
 Help:
     it help"
 
@@ -175,6 +176,19 @@ Help:
 
   else if cmd is "setting" or cmd is "config" then
     return setting()
+
+  else if cmd is "genius" then
+    try
+      tell application "iTunes"
+        if name of current playlist is "Genius" then
+          return "You're listening playlist Genius"
+        else
+          play user playlist "Genius"
+          return "Change to playlist Genius"
+        end if
+      end tell
+    end try
+    return "Cant't not find playlist Genius :("
 
   else
     return help_txt
