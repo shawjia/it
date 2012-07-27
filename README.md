@@ -41,6 +41,7 @@ and then create a symbolic link:
     it setting(config)
     it genius
     it xiami
+    it douban
 
 ## Help:
 

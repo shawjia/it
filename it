@@ -35,6 +35,11 @@ on search_xiami(str)
   do shell script "open '" & str & "'"
 end search_xiami
 
+on search_douban(str)
+  set str to "http://music.douban.com/subject_search?search_text=" & str
+  do shell script "open '" & str & "'"
+end search_douban
+
 on setting()
   tell application "iTunes"
     set now_pl to "none"
@@ -79,6 +84,7 @@ Other:
     it setting(config)
     it genius
     it xiami
+    it douban
 Help:
     it help"
 
@@ -203,12 +209,21 @@ Help:
     return "Cant't not find playlist Genius :("
 
   else if cmd is "xiami" then
-    --try
+    try
       tell application "iTunes" to set current_name to name of current track
       search_xiami(encode_str(current_name))
       return "Go to your browser"
-   -- end try
+    end try
     return "oops, seems sth. wrong"
+
+  else if cmd is "douban" then
+    try
+      tell application "iTunes" to set current_name to album of current track
+      search_douban(encode_str(current_name))
+      return "Go to your browser"
+    end try
+    return "oops, seems sth. wrong"
+
 
   else
     return help_txt
