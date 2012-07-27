@@ -40,6 +40,7 @@ and then create a symbolic link:
     it shuffle off/on
     it setting(config)
     it genius
+    it xiami
 
 ## Help:
 

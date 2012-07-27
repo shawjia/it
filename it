@@ -24,6 +24,17 @@ on current_track_info()
   end tell
 end current_track_info
 
+--https://discussions.apple.com/thread/1988268
+on encode_str(str)
+  set textencoded to do shell script "php -r 'echo trim(urlencode(" & "\"" & str & "" & "\"));'"
+  return textencoded
+end encode_str
+
+on search_xiami(str)
+  set str to "http://www.xiami.com/search?key=" & str
+  do shell script "open '" & str & "'"
+end search_xiami
+
 on setting()
   tell application "iTunes"
     set now_pl to "none"
@@ -67,6 +78,7 @@ Other:
     it shuffle off/on
     it setting(config)
     it genius
+    it xiami
 Help:
     it help"
 
@@ -189,6 +201,14 @@ Help:
       end tell
     end try
     return "Cant't not find playlist Genius :("
+
+  else if cmd is "xiami" then
+    --try
+      tell application "iTunes" to set current_name to name of current track
+      search_xiami(encode_str(current_name))
+      return "Go to your browser"
+   -- end try
+    return "oops, seems sth. wrong"
 
   else
     return help_txt
