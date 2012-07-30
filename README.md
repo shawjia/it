@@ -42,6 +42,7 @@ and then create a symbolic link:
     it genius
     it xiami
     it douban
+    it playlist [playlist name]
 
 ## Help:
 

@@ -85,6 +85,7 @@ Other:
     it genius
     it xiami
     it douban
+    it playlist [playlist name]
 Help:
     it help"
 
@@ -224,6 +225,17 @@ Help:
     end try
     return "oops, seems sth. wrong"
 
+  else if cmd is "playlist" then
+    try
+      set pl to item 2 of argv
+    on error
+      return "you must specify the playlist name"
+    end try
+    try
+      tell application "iTunes" to play user playlist pl
+      return "Playlist switch to " & pl
+    end try
+    return "cant' find playlist " & pl
 
   else
     return help_txt
